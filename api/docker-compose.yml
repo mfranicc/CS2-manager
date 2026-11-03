@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:17
+    container_name: cs2manager-db
+    environment:
+      POSTGRES_USER: cs2manager
+      POSTGRES_PASSWORD: cs2manager
+      POSTGRES_DB: cs2manager
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
+
+volumes:
+  pgdata:
