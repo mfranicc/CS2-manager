@@ -1,12 +1,25 @@
+# Web framework i posluzitelj
 fastapi>=0.115
 uvicorn[standard]>=0.32
-sqlalchemy>=2.0.36
-alembic>=1.14
-psycopg[binary]>=3.2
+
+# Konfiguracija iz varijabli okoline
 pydantic>=2.10
 pydantic-settings>=2.6
-pyjwt>=2.10
+
+# Baza: ORM, asinkroni upravljacki program za PostgreSQL i migracije
+sqlalchemy[asyncio]>=2.0.36
+asyncpg>=0.30
+alembic>=1.14
+
+# Hashiranje lozinki i JWT tokeni
 bcrypt>=4.2
+pyjwt>=2.10
+
+# Staticka analiza i formatiranje
+ruff>=0.9
+
+# Testovi: pytest, async testovi, HTTP klijent nad aplikacijom, zamrznuto vrijeme
 pytest>=8.3
+pytest-asyncio>=0.25
 httpx>=0.28
 freezegun>=1.5

@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """Postavke aplikacije; vrijednosti se citaju iz varijabli okoline ili datoteke .env."""
+    """Postavke aplikacije iz varijabli okoline ili datoteke .env."""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

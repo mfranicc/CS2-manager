@@ -4,10 +4,11 @@ from typing import TYPE_CHECKING
 from sqlalchemy import DateTime, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.database import Base
+from app.core.database import Base
 
 if TYPE_CHECKING:
     from app.models.player import Player
+    from app.models.registration import Registration
     from app.models.user import User
 
 
@@ -26,5 +27,8 @@ class Team(Base):
 
     owner: Mapped["User"] = relationship(back_populates="teams")
     players: Mapped[list["Player"]] = relationship(
+        back_populates="team", cascade="all, delete-orphan"
+    )
+    registrations: Mapped[list["Registration"]] = relationship(
         back_populates="team", cascade="all, delete-orphan"
     )

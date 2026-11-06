@@ -1,14 +1,13 @@
-from fastapi import Depends, FastAPI
-from sqlalchemy import text
-from sqlalchemy.orm import Session
+from fastapi import FastAPI
 
-from app.database import get_db
-
-app = FastAPI(title="CS2 Manager API")
+from app.routers.health import router as health_router
 
 
-@app.get("/health")
-def health(db: Session = Depends(get_db)) -> dict[str, str]:
-    """Provjera rade li aplikacija i veza s bazom."""
-    db.execute(text("SELECT 1"))
-    return {"status": "ok"}
+def create_app() -> FastAPI:
+    app = FastAPI(title="CS2 Manager API")
+
+    app.include_router(health_router, prefix="/health", tags=["health"])
+    return app
+
+
+app = create_app()

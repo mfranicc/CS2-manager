@@ -1,0 +1,25 @@
+[project]
+name = "cs2-manager-api"
+version = "0.1.0"
+description = "Upravljanje CS2 timovima, igracima i prijavama na turnire"
+requires-python = ">=3.11"
+
+# Zavisnosti su u requirements.txt; ovdje je samo konfiguracija alata.
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+# E/W: stil, F: pogreske vidljive iz koda, I: redoslijed uvoza
+select = ["E", "W", "F", "I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+# async def testovi i fixtureovi rade bez posebne oznake
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
