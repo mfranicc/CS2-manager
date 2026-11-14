@@ -11,6 +11,7 @@ from app.core.errors import (
 from app.routers.auth import router as auth_router
 from app.routers.health import router as health_router
 from app.routers.players import router as players_router
+from app.routers.registrations import router as registrations_router
 from app.routers.teams import router as teams_router
 from app.routers.tournaments import router as tournaments_router
 
@@ -30,6 +31,11 @@ def create_app() -> FastAPI:
         players_router, prefix="/teams/{team_id}/players", tags=["players"]
     )
     app.include_router(tournaments_router, prefix="/tournaments", tags=["tournaments"])
+    app.include_router(
+        registrations_router,
+        prefix="/tournaments/{tournament_id}/registrations",
+        tags=["registrations"],
+    )
     return app
 
 

@@ -9,6 +9,14 @@ async def get_by_id(db: AsyncSession, tournament_id: int) -> Tournament | None:
     return await db.get(Tournament, tournament_id)
 
 
+async def get_by_id_for_update(
+    db: AsyncSession, tournament_id: int
+) -> Tournament | None:
+    # SELECT ... FOR UPDATE: redak turnira ostaje zakljucan do kraja transakcije,
+    # pa dvije istodobne prijave ne mogu obje proci provjeru kapaciteta
+    return await db.get(Tournament, tournament_id, with_for_update=True)
+
+
 async def get_all(
     db: AsyncSession,
     status: TournamentStatus | None,
