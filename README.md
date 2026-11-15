@@ -175,6 +175,8 @@ Pogreške validacije (422) uz to navode polja:
 }
 ```
 
+Neočekivana pogreška na poslužitelju (npr. nedostupna baza) vraća `500 internal_error` u istom obliku, bez detalja o samoj iznimci.
+
 ## Struktura
 
 ```

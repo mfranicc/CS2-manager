@@ -57,3 +57,15 @@ async def http_exception_handler(
         },
         headers=getattr(exc, "headers", None),
     )
+
+
+async def unhandled_error_handler(_request: Request, _exc: Exception) -> JSONResponse:
+    # Neocekivana iznimka (npr. baza nedostupna): isti oblik odgovora, bez detalja
+    # o unutrasnjosti aplikacije; sama iznimka i dalje zavrsava u logu posluzitelja
+    return JSONResponse(
+        status_code=500,
+        content={
+            "code": "internal_error",
+            "message": "Dogodila se neocekivana pogreska",
+        },
+    )
