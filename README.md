@@ -177,6 +177,32 @@ Pogreške validacije (422) uz to navode polja:
 
 Neočekivana pogreška na poslužitelju (npr. nedostupna baza) vraća `500 internal_error` u istom obliku, bez detalja o samoj iznimci.
 
+### Kodovi pogrešaka
+
+Klijent obradu grana po polju `code`, a ne po tekstu poruke, pa se poruka smije promijeniti bez utjecaja na klijenta.
+
+| Status | Kod | Značenje |
+|---|---|---|
+| 400 | `invalid_deadline` | Rok prijave turnira nije u budućnosti |
+| 401 | `invalid_credentials` | Kriva lozinka ili nepostojeći korisnik (isti odgovor), token nedostaje ili je neispravan, refresh token na mjestu pristupnog ili obrnuto |
+| 401 | `token_expired` | Pristupni token je istekao; novi par daje `/auth/refresh` |
+| 403 | `forbidden` | Uloga nema pravo na akciju ili zapis pripada drugom manageru |
+| 404 | `not_found` | Zapis ne postoji, nije pod tom adresom (npr. igrač drugog tima) ili je turnir u statusu `draft`, a korisnik nije admin; isto i za nepostojeću putanju |
+| 405 | `method_not_allowed` | Putanja ne podržava tu HTTP metodu |
+| 409 | `duplicate` | Ime tima ili nadimak igrača već postoji, ili je tim već prijavljen na turnir |
+| 409 | `team_full` | Tim već ima 7 igrača |
+| 409 | `has_registrations` | Tim s prijavama na turnire ne može se obrisati |
+| 409 | `registration_not_open` | Turnir nije u statusu `registration_open` |
+| 409 | `registration_closed` | Rok za prijavu i odjavu je istekao |
+| 409 | `not_enough_players` | Tim ima manje od 5 igrača |
+| 409 | `tournament_full` | Turnir je popunjen (`max_teams`) |
+| 409 | `invalid_status_transition` | Status ne ide točno jedan korak naprijed |
+| 409 | `tournament_locked` | Turnir u tijeku ili završen ne mijenja se |
+| 409 | `max_teams_too_low` | Kapacitet bi pao ispod broja prijavljenih timova |
+| 409 | `tournament_not_draft` | Briše se samo turnir u statusu `draft` |
+| 422 | `validation_error` | Tijelo ili parametri zahtjeva ne prolaze validaciju; popis polja je u `errors` |
+| 500 | `internal_error` | Neočekivana pogreška na poslužitelju |
+
 ## Struktura
 
 ```
